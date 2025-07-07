@@ -26,18 +26,12 @@ class TaskMasterLLM:
                             В случае если данная цель является невозможной для обычного человека то поле category напиши <I> "
                     
             },
-            #{"role": "user", "content": listProducts},
         ],
         response_format={
             "type": "json_object",
             "schema": {
                 "type": "object",
-                "properties": {"steps":[{"type":"string"}]},
-                
-                #"type":"object",
-                #"properties":{"category":{"type":"string"}}
-                
-                
+                "properties": {"steps":[{"type":"string"}]},             
                 "required": ["steps"],
 
             },

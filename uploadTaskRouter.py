@@ -1,23 +1,26 @@
 from fastapi import FastAPI, UploadFile, File, APIRouter
 from pydantic import BaseModel, Field
+from taskMasterLLM import TaskMasterLLM
 
 
-#Thing which uses to send info in ChequeInfo
-class ReqImgLLM(BaseModel):
-    #qrImg: UploadFile = Field(default=...,description="Файл с qr-кодом чека")
+taskMasterLLM = TaskMasterLLM()
+
+
+#Thing which uses to send task and description into a LLM to generate steps to achive the aim
+class ReqTaskLLM(BaseModel):
     userID: int = Field(default=...)
-    qrInfo:str = Field(description="Информация с чека")
+    task: str = Field(default=...,description="Цель пользователя")
+    description: str = Field(default=...,description="Описание цели пользователя")
 
 
 
-uploadTask = APIRouter(prefix = "/api/autofill_llm",tags=["Отправка чека для дальнейшего заполнения в бд"])
+uploadTask = APIRouter(prefix = "/api/task_llm",tags=["Отправка цели и описание цели в LLM, для генерации шагов достижения"])
 
 
-@uploadTask.post("/uploadIMG")
-def  sendToChequeInfo(reqImgLLM: ReqImgLLM):
-    return {"message": "File saved successfully"}
+@uploadTask.post("/postTask")
+def  sendToChequeInfo(reqTaskLLM: ReqTaskLLM):
     
-@uploadTask.get("/showProductsList")
-def getProductList():
-    return 0
-
+    plan = taskMasterLLM.getPlan(task=reqTaskLLM.task,description=reqTaskLLM.description)
+    
+    return plan
+ 
