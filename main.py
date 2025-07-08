@@ -9,13 +9,7 @@ app.include_router(uploadTask)
 
 @app.get("/")
 def root():
-
-    task = TaskMasterLLM()
-    steps = task.getPlan(task="Заправить машину", description="Мне нужно сегодня заправить машину но я не знаю когда это будет лучше всего сделать")
-   
-    
-    print(steps.items())
-    return {steps}
+    return {"Main page"}
 
 
     
