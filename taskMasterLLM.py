@@ -1,6 +1,7 @@
 from llama_cpp import Llama
 import json
-
+#Используй kebab-case в названии файлов, а еще пересмотри структуру,
+#скорее всего тебе нужно будет завести под модель отдельную папку, с роутингом и логикой
 
 
 class TaskMasterLLM:
@@ -12,7 +13,8 @@ class TaskMasterLLM:
     
     
     def getPlan(self,task,description):
-        
+        #TODO Так ну тут тебе советую сделать отдельный файл обработчик промтов,
+        #  куда ты будешь записывать messages и может менеджер запонения этих промтов по **kwargs, там я думаю можно и response format оставить.
         response = self.__llm.create_chat_completion(
         messages=[
             {
