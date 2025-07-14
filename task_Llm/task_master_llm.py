@@ -39,5 +39,5 @@ class TaskMasterLLM:
         temperature=0.8
         )
         
-                
+        print (response["choices"][0]["message"]["content"])
         return json.loads(response["choices"][0]["message"]["content"])
